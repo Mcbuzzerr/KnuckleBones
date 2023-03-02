@@ -49,14 +49,16 @@ function findWinner() {
     p1Dice.forEach(column => {
         for(let i = 0; i < column.length; i++) {
             let scored = false;
-            for(let j = 0; j < column.length; j++) {
+            for(let j = i + 1; j < column.length; j++) {
                 if (column[i] == column[j] && j > i) {
                     if (i == 0 && j == 1 && column[2] == column[i]){
                         //triple
+                        p1Score += column[i] * 9;
                         scored = true;
+                        i = column.length;
                     } else {
-                        //note: if triple, this will trigger on second number. needs adjustment.
                         //double
+                        p1Score += column[i] * 4;
                         scored = true;
                     }
                 }
@@ -73,3 +75,28 @@ function findWinner() {
 // new die is created at location
 
 // dicetraydie.addEventListener('click', function() {})
+function score(diceArray) {
+    let score = 0;
+    diceArray.forEach(column => {
+        for(let i = 0; i < column.length; i++) {
+            let scored = false;
+            for(let j = i + 1; j < column.length; j++) {
+                if (column[i] == column[j] && j > i) {
+                    if (i == 0 && j == 1 && column[2] == column[i]){
+                        //triple
+                        score += column[i] * 9;
+                        scored = true;
+                        i = column.length;
+                    } else {
+                        //double
+                        score += column[i] * 4;
+                        scored = true;
+                    }
+                }
+            }
+            if (!scored) score += column[i];
+        }
+    });
+    return score;
+}
+
