@@ -1,10 +1,23 @@
+:root {
+    --background-color: #302c2c;
+    --foreground-color: #262121;
+    --dice-color: #e0ddcf;
+
+    --first-color: #b70819;
+    --second-color: #d11713;
+    --tertiary-color: #a20310;
+}
+
 * {
-    outline: 1px solid red;
+    /* outline: 1px solid blue; */
     outline-offset: 0;
 }
 
 body {
     overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background-color);
 }
 
 header {
@@ -15,10 +28,12 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    background-color: #64be37;
+    background-color: var(--foreground-color);
     text-align: center;
     font-size: 5rem;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: var(--second-color);
+    border-bottom: 2px solid var(--second-color);
 }
 
 footer {
@@ -29,23 +44,22 @@ footer {
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #64be37;
+    background-color: var(--foreground-color);
+    border-top: 2px solid var(--second-color);
 }
 
 section {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    height: 80vh;
+    height: 87vh;
     width: 100vw;
 }
 
-#board {
-    height: 50vh;
-    width: 50vh;
-    background-color: #64be37;
-    border: 1px solid black;
+.board {
+    height: 400px;
+    width: 400px;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
@@ -54,17 +68,230 @@ section {
 }
 
 .row {
-    height: 100px;
+    height: 34%;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    background-color: var(--foreground-color);
+}
+
+.first {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.last {
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
 .item {
-    width: 50px;
-    height: 50px;
-    border: 2px solid blue;
+    width: 100px;
+    height: 100px;
+    border: 2px solid var(--second-color);
+    background-color: var(--background-color);
     border-radius: 20px;
 }
+
+.ider {
+    height: 420px;
+    width: 5px;
+    background-color: var(--second-color);
+}
+
+.diceTray {
+    height: 80px;
+    width: 160px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+    border-radius: 10px;
+    border: 2px solid var(--second-color);
+}
+
+.button {
+    background-color: var(--second-color);
+    color: black;
+    border-radius: 15px;
+    width: 130px;
+    height: 50px;
+    user-select: none;
+}
+
+.button:hover {
+    filter: brightness(75%);
+}
+
+.centerInsides {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ------------------------- DICE -------------------------------- */
+:root {
+    --pip-padding: 4px;
+}
+
+
+#dice-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+}
+
+.die {
+    width: 60px;
+    height: 60px;
+    background-color: var(--dice-color);
+    border-radius: 10px;
+    position: relative;
+}
+
+.pip {
+    width: 15px;
+    height: 15px;
+    border-radius: 20px;
+    background-color: black;
+    user-select: none;
+    /* color: white; */
+}
+
+/* FACE 1 */
+.die-1 .pip {
+    position: absolute;
+    top: calc(50% - 7.5px);
+    left: calc(50% - 7.5px);
+}
+/* FACE 2 */
+.die-2 .pip {
+    position: absolute;
+    bottom: var(--pip-padding);
+    right: var(--pip-padding);
+}
+
+.die-2 .pip:nth-child(1) {
+    position: absolute;
+    top: var(--pip-padding);
+    left: var(--pip-padding);
+}
+
+/* FACE 3 */
+.die-3 .pip {
+    position: absolute;
+    bottom: var(--pip-padding);
+    right: var(--pip-padding);
+}
+
+.die-3 .pip:nth-child(2) {
+    position: absolute;
+    top: calc(50% - 7.5px);
+    left: calc(50% - 7.5px);
+}
+
+.die-3 .pip:nth-child(1) {
+    position: absolute;
+    top: var(--pip-padding);
+    left: var(--pip-padding);
+}
+
+/* FACE 4 */
+.die-4 .pip {
+    position: absolute;
+    bottom: var(--pip-padding);
+    right: var(--pip-padding);
+}
+
+.die-4 .pip:nth-child(2) {
+    position: absolute;
+    top: var(--pip-padding);
+    left: var(--pip-padding);
+}
+
+.die-4 .pip:nth-child(3) {
+    position: absolute;
+    top: var(--pip-padding);
+    right: var(--pip-padding);
+}
+
+.die-4 .pip:nth-child(4) {
+    position: absolute;
+    bottom: var(--pip-padding);
+    left: var(--pip-padding);
+}
+/* FACE 5 */
+.die-5 .pip {
+    position: absolute;
+    bottom: var(--pip-padding);
+    right: var(--pip-padding);
+}
+
+.die-5 .pip:nth-child(2) {
+    position: absolute;
+    top: calc(50% - 7.5px);
+    left: calc(50% - 7.5px);
+}
+
+.die-5 .pip:nth-child(3) {
+    position: absolute;
+    top: var(--pip-padding);
+    right: var(--pip-padding);
+}
+
+.die-5 .pip:nth-child(4) {
+    position: absolute;
+    top: var(--pip-padding);
+    left: var(--pip-padding);
+}
+
+.die-5 .pip:nth-child(5) {
+    position: absolute;
+    bottom: var(--pip-padding);
+    left: var(--pip-padding);
+}
+/* FACE 6 */
+.die-6 .pip {
+    position: absolute;
+    bottom: var(--pip-padding);
+    right: var(--pip-padding);
+}
+
+.die-6 .pip:nth-child(2) {
+    position: absolute;
+    top: var(--pip-padding);
+    left: var(--pip-padding);
+}
+
+.die-6 .pip:nth-child(3) {
+    position: absolute;
+    top: var(--pip-padding);
+    right: var(--pip-padding);
+}
+
+.die-6 .pip:nth-child(4) {
+    position: absolute;
+    bottom: var(--pip-padding);
+    left: var(--pip-padding);
+}
+
+.die-6 .pip:nth-child(5) {
+    position: absolute;
+    top: calc(50% - 7.5px);
+    left: var(--pip-padding);
+}
+
+.die-6 .pip:nth-child(6) {
+    position: absolute;
+    top: calc(50% - 7.5px);
+    right: var(--pip-padding);
+}
+
+
+/* ------------------------- DICE END ---------------------------- */
