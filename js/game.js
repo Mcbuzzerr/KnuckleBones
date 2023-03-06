@@ -1,6 +1,30 @@
 p1Dice = [[],[],[]];
 p2Dice = [[],[],[]];
 
+function visRoll(){
+    //roll 30 times
+    //update on final roll
+    let rolls = 0;
+    let trayDie = document.getElementById("trayDie");
+    let endRoll = rollDie();
+
+    let interval = setInterval(function(){
+        rolls++;
+        let newRoll = rollDie();
+        for(let i = 1; i <= 6; i++) {
+            trayDie.classList.remove("die-" + i);
+        }
+        trayDie.classList.add("die-" + newRoll);
+        
+        if (rolls == 16) {
+            clearInterval(interval);
+            trayDie.classList.remove("die-" + newRoll);
+            trayDie.classList.add("die-" + endRoll);
+        }
+    }, 73);
+    return endRoll;
+}
+
 function rollDie() {
         return Math.floor(Math.random() * 6) + 1;
 }
