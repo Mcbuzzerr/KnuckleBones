@@ -1,5 +1,7 @@
-p1Dice = [[],[],[]];
-p2Dice = [[],[],[]];
+let p1Dice = [[],[],[]];
+let p2Dice = [[],[],[]];
+let currentRoll = 0;
+
 
 function visRoll(){
     //roll 30 times
@@ -22,7 +24,14 @@ function visRoll(){
             trayDie.classList.add("die-" + endRoll);
         }
     }, 73);
+    document.getElementById("trayDie").addEventListener('mouseDown', (event) => { clickDragDie(event) });
     return endRoll;
+}
+
+const clickDragDie = (event) => {
+    let die = event.target;
+
+
 }
 
 function rollDie() {
@@ -94,7 +103,7 @@ function findWinner() {
 // click drag from dicetray die to desired location
 // new die is created at location
 
-// dicetraydie.addEventListener('click', function() {})
+
 
 
 function score(diceArray) {
