@@ -21,6 +21,7 @@ function visRoll(){
 
     document.getElementById("diceTray").appendChild(trayDie);
     let endRoll = rollDie();
+    console.log("endRoll: " + endRoll)
 
     let interval = setInterval(function(){
         rolls++;
@@ -55,31 +56,58 @@ const clickDragDie = (event) => {
     const onMouseUp = (event) => {
         //Place die in row
         document.body.removeChild(die);
-        if (document.elementFromPoint(event.clientX, event.clientY).classList.contains("item")) {
+        if (document.elementFromPoint(event.clientX, event.clientY).classList.contains("item") && document.elementFromPoint(event.clientX, event.clientY).innerHTML == "") {
             let tile = document.elementFromPoint(event.clientX, event.clientY);
             document.body.appendChild(die);
             let tileID = tile.id.split("-");
             let column = tileID[2];
             let row = tileID[1];
             let tileOwner = tileID[0];
-            console.log(tileOwner);
-            console.log(turns);
-            console.log(turns % 2);
             if (turns % 2 == 0 && tileOwner == "p1") {
                 let value = die.classList[1].split("-")[1];
                 die.id = ""
                 placeDie(column, row, value, true)
                 render()
-                checkEnd()
-                alert(score(p1Dice))
+                if (checkEnd()) {
+                    switch (findWinner()) {
+                        case 1:
+                            popup(`Player 1 wins! With a score of ${score2(p1Dice)}`)
+                            break;
+                        case 2:
+                            popup(`Player 2 wins! With a score of ${score2(p2Dice)}`)
+                            break;
+                        case 3:
+                            popup(`A tie has occured! Score: ${score2(p1Dice)}`)
+                            break;
+                    }
+                }
+                let scoreBoard = document.getElementById("player1score")
+                scoreBoard.innerText = score(p1Dice)
+                
             }
             else if (turns % 2 == 1 && tileOwner == "p2") {
                 let value = die.classList[1].split("-")[1];
                 die.id = ""
                 placeDie(column, row, value, false)
                 render()
-                checkEnd()
-                alert(score(p2Dice))
+                if (checkEnd()) {
+                    switch (findWinner()) {
+                        case 1:
+                            popup(`Player 1 wins! With a score of ${score2(p1Dice)} Loser Score: ${score(p2Dice)}`)
+                            break;
+                        case 2:
+                            popup(`Player 2 wins! With a score of ${score2(p2Dice)} Loser Score: ${score(p1Dice)}`)
+                            break;
+                        case 3:
+                            popup(`A tie has occured! Score: ${score2(p1Dice)}`)
+                            break;
+                        default:
+                            popup("Something horrible has occured. Contact your loved ones. You should never have come here.")
+                            break;
+                    }
+                }
+                let scoreBoard = document.getElementById("player2score")
+                scoreBoard.innerText = score(p2Dice)
             } else {
                 tray.appendChild(die);
                 die.style.position = 'relative';
@@ -92,14 +120,6 @@ const clickDragDie = (event) => {
                 return;
             }
             die.remove();
-            // tile.appendChild(die);
-            // die.style.position = 'relative';
-            // die.style.zIndex = 0;
-            // die.style.top = 0;
-            // die.style.left = 0;
-            // console.log("column: " + column + " row: " + row);
-            
-
             document.removeEventListener('mouseup', onMouseUp);
             document.removeEventListener('mousemove', onMouseMove);
             die.removeEventListener('mousedown', clickDragDie);
@@ -150,9 +170,9 @@ const render = () => {
     }
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-            if (p2Dice[i][j] == null) continue;
             let tile = document.getElementById("p2-" + i + "-" + j);
             tile.innerHTML = "";
+            if (p2Dice[i][j] == null) continue;
 
             let die = document.createElement("div");
             die.classList.add("die");
@@ -179,6 +199,8 @@ function rollDie() {
  * 
  * @param {number} column 
  * which column to place the die in
+ * @param {number} row 
+ * which row to place the die in
  * @param {number} die 
  * the die's value
  * @param {boolean} player 
@@ -272,7 +294,7 @@ function score2(diceArray) {
                         i = column.length;
                     } else {
                         //double
-                        score += column[i] * 4;
+                        score += column[i] * 3;
                         scored = true;
                     }
                 }
