@@ -231,7 +231,7 @@ function placeDie(column, row, die, player) {
     }
 }
 
-
+// UNTESTED
 function checkEnd() {
     //check if all columns are full
     let p1Full = true;
@@ -255,7 +255,6 @@ function findWinner() {
     else return 0;
 }
 
-//Flawed
 function score(diceArray) {
     let score = 0;
     for (let i = 0; i < diceArray.length; i++) {
@@ -280,6 +279,7 @@ function score(diceArray) {
     return score;
 }
 
+// BROKEN
 function score2(diceArray) {
     let score = 0;
     diceArray.forEach(column => {
